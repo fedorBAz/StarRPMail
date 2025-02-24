@@ -1,0 +1,15 @@
+name: StarRPMail
+version: '${project.version}'
+main: dev.bronzylobster.starRPMail.StarRPMail
+api-version: '1.21'
+prefix: SRPm
+authors: [ BL40 ]
+description: Special for Fomalgaut with Love
+commands:
+  mail:
+    aliases:
+      - mailsend
+      - sendmail
+      - send
+  getitem:
+    description: semi-useless

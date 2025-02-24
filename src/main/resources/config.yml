@@ -1,0 +1,11 @@
+#Задержка отправки в секундах
+send-cooldown: 60
+
+messages:
+  player-offline: "Игрок не найден"
+  no-item: "Вы должны держать предмет в руке"
+  mail-send: "Вы отправили %item%, %player%"
+  mail-receive: "Вы получили %item% от %player%"
+  inventory-full: "Ваш инвентарь полон, используйте /getitem чтобы получить его"
+  unavailable: "Пока вы не можете это сделать, попробуйте через минутку"
+sound: entity.arrow.hit_player
