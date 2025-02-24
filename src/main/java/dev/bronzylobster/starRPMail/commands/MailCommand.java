@@ -9,12 +9,14 @@ import net.kyori.adventure.sound.Sound;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
+
 
 import java.util.HashMap;
 import java.util.Map;
@@ -42,6 +44,14 @@ public class MailCommand extends AbstractCommand {
 
         Player p = Bukkit.getPlayer(player);
         Player sender = (Player) commandSender;
+
+        assert p != null;
+        Location recieverLocation = p.getLocation();
+        double distance = sender.getLocation().distance(recieverLocation);
+        long baseDelay = 20L;
+        double scale = config.getLong("scale");
+        double scalingFactor = config.getLong("scaling-factor");
+        double delay = baseDelay + scalingFactor * (1 - Math.exp(-distance / scale));
 
         if (StarRPMail.sends.containsKey(p)) {
             commandSender.sendMessage(messageManager.messageToComponent(config.getString("messages.unavailable")));
@@ -86,7 +96,7 @@ public class MailCommand extends AbstractCommand {
                     p.playSound(Sound.sound(Key.key(soundkey), Sound.Source.AMBIENT, 1f, 1f));
                 }
             }
-        }.runTaskLater(StarRPMail.getInstance(), 20L * config.getLong("send-cooldown"));
+        }.runTaskLater(StarRPMail.getInstance(), Math.round(delay));
 
 
     }

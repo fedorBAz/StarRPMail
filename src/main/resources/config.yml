@@ -1,5 +1,6 @@
 #Задержка отправки в секундах
-send-cooldown: 60
+scaling-factor: 60
+scale: 10
 
 messages:
   player-offline: "Игрок не найден"
